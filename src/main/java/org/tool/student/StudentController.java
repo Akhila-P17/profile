@@ -6,14 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.tool.UserRepository;
 import org.tool.auth.User;
-import org.tool.auth.UserRepository;
+
 import org.tool.teacher.TeacSubjectEntity;
 import org.tool.teacher.TeacSubjectRepository;
 
@@ -95,7 +97,7 @@ public class StudentController {
 				MailService.send(student.getEmail(), "Registration Successful ", " Your user_id : " + student.getEmail() +  "  password : " + student.getPassword());
 				
 				tRepo.save(student);
-				User user = new User( student.getEmail(),  student.getPassword() , "STUDENT" , true, true, true, true);
+				User user = new User( student.getStudent_id(), student.getEmail(),  new BCryptPasswordEncoder(11).encode( student.getPassword()) , "STUDENT" , true, true, true, true);
 				uRepo.save(user);
 			
 			

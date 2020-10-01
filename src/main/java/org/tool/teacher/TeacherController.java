@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.tool.UserRepository;
 import org.tool.auth.User;
-import org.tool.auth.UserRepository;
+
 
 
 @RestController
@@ -76,7 +77,7 @@ public class TeacherController {
 			
 			tRepo.save(teacher);
 			
-			User user = new User( teacher.getEmail(),   teacher.getPassword() , "TEACHER" , true, true, true, true);
+			User user = new User( teacher.getTeacher_id(), teacher.getEmail(),   teacher.getPassword() , "TEACHER" , true, true, true, true);
 			uRepo.save(user);
 		
 			

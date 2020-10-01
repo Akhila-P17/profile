@@ -15,8 +15,8 @@ public class User {
 	@Column(name = "id", nullable = false)
 	private long id;
 	
-	@Column(name = "username", nullable = false, unique = true)
-	private String username;
+	@Column(name = "userName", nullable = false, unique = true)
+	private String userName;
 	
 	@Column(name = "password", nullable = false)
 	private String password;
@@ -36,17 +36,15 @@ public class User {
 	@Column(name = "isEnabled", nullable = false)
 	private boolean isEnabled;
 	
-	
-
 	public User() {
-	
+		
 	}
 
-	public User( String username, String password, String role, boolean isAccountNonExpired,
+	public User(long id, String userName, String password, String role, boolean isAccountNonExpired,
 			boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled) {
 		super();
-		
-		this.username = username;
+		this.id = id;
+		this.userName = userName;
 		this.password = password;
 		this.role = role;
 		this.isAccountNonExpired = isAccountNonExpired;
@@ -63,12 +61,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -119,15 +117,6 @@ public class User {
 		this.isEnabled = isEnabled;
 	}
 
-	@Override
-	public String toString() {
-		return String.format(
-				"User [id=%s, username=%s, password=%s, role=%s, isAccountNonExpired=%s, isAccountNonLocked=%s, isCredentialsNonExpired=%s, isEnabled=%s]",
-				id, username, password, role, isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired,
-				isEnabled);
-	}
-	
-	
 	
 	
 }

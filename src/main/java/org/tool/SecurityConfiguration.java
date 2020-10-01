@@ -20,22 +20,25 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 import org.springframework.stereotype.Component;
 
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserDetailsService userDetailsService;
-
-    @Override
-   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.userDetailsService(userDetailsService);
-   }
+    //@Autowired
+    //UserDetailsService userDetailsService;
 
     @Override
-   protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+        .withUser("akhi")
+        .password("akhi")
+        .roles("USER");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/").permitAll()
+                .antMatchers("/register-student").hasRole("USER")
+                .antMatchers("/student").hasAnyRole("TEACHER", "STUDENT")
+                .antMatchers("/").permitAll() 
                 .and().formLogin();
     }
 
