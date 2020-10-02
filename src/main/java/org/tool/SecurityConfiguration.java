@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,6 +22,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 import org.springframework.stereotype.Component;
 
 @EnableWebSecurity
+
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     //@Autowired
@@ -30,14 +33,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
         .withUser("akhi")
         .password("akhi")
-        .roles("USER");
+        .roles("STUDENT")
+        .and()
+        .withUser("kiran")
+        .password("kiran")
+        .roles("TEACHER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/register-student").hasRole("USER")
-                .antMatchers("/student").hasAnyRole("TEACHER", "STUDENT")
+        http
+        .authorizeRequests()
+                .antMatchers("/register").hasRole("USER")
+              //  .antMatchers(HttpMethod.POST,"/register/teacher").hasRole("TEACHER")
+                .antMatchers("/register-teacher").hasRole("TEACHER")
+                .antMatchers("/register-student").hasAnyRole("TEACHER", "STUDENT")
                 .antMatchers("/").permitAll() 
                 .and().formLogin();
     }

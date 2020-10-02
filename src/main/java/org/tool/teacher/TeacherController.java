@@ -41,7 +41,7 @@ public class TeacherController {
 	public String check() {
 		
 		System.out.println("get req");
-		return "Got get!!";
+		return "Got teacher!!";
 	}
 	
 	

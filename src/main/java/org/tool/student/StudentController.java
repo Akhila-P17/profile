@@ -23,6 +23,7 @@ import javassist.bytecode.Descriptor.Iterator;
 
 @Component
 @RestController
+
 public class StudentController {
 	
 	
@@ -47,8 +48,10 @@ public class StudentController {
 	public String check() {
 		
 		System.out.println("get req");
-		return "Got get!!";
+		return "Got student!!";
 	}
+	
+
 	
 	
 	@PostMapping("/register/student")
